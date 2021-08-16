@@ -13,6 +13,10 @@ export class UserService {
     return this.http.post<User>('user', user);
   }
 
+  update(user: User): Observable<User> {
+    return this.http.put<User>(`user/${user.id}`, user);
+  }
+
   getUsers(page: number): Observable<any> {
     return this.http.get<any>(`user/${page}/users`);
   }

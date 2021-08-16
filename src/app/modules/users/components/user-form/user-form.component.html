@@ -13,7 +13,7 @@
       Login is obrigatory!
     </p>
   </div>
-  <div class="form-group">
+  <div class="form-group" *ngIf="form.get('id').value == null">
     <label>Password</label>
     <input class="form-control" formControlName="password" type="password" />
     <p *ngIf="showErrorMessage('password')" class="text-danger small">

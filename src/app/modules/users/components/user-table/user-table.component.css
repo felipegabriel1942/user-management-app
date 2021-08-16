@@ -1,0 +1,16 @@
+fa-icon {
+  cursor: pointer;
+  color: rgb(209, 207, 207);
+}
+
+.edit-icon:hover {
+  color: blue;
+}
+
+.mail-icon:hover {
+  color: green;
+}
+
+.delete-icon:hover {
+  color: red;
+}

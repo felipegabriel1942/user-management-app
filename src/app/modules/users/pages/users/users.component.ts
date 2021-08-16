@@ -29,6 +29,7 @@ export class UsersComponent implements OnInit {
 
   buildForm(): void {
     this.form = new FormGroup({
+      id: new FormControl(null),
       name: new FormControl(null, Validators.required),
       login: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
@@ -37,26 +38,48 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  save(): void {
+  onSaveBtnClick(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const user = this.form.value;
+    if (this.isCreatingUser()) {
+      this.save();
+    } else {
+      this.update();
+    }
+  }
 
-    this.userService.save(user).subscribe((_) => {
+  isCreatingUser(): boolean {
+    return this.form.get('id').value == null;
+  }
+
+  save(): void {
+    this.userService.save(this.form.value).subscribe((_) => {
       this.getUsers();
       this.closeModal();
       this.notificationService.success('User created successfully.');
     });
   }
 
+  update(): void {
+    this.userService.update(this.form.value).subscribe((_) => {
+      this.getUsers();
+      this.closeModal();
+      this.notificationService.success('User updated successfully.');
+    });
+  }
+
   getUsers(): void {
     this.userService.getUsers(0).subscribe((res) => {
       this.page = res;
-      console.log(res);
     });
+  }
+
+  edit(user: User): void {
+    this.openModal();
+    this.form.patchValue(user);
   }
 
   openModal(): void {
@@ -67,5 +90,4 @@ export class UsersComponent implements OnInit {
   closeModal(): void {
     this.modalService.close('modal');
   }
-
 }

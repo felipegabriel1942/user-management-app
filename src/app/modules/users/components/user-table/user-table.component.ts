@@ -1,4 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { faEdit, faTrash, faMailBulk } from '@fortawesome/free-solid-svg-icons';
+
 import { User } from 'src/app/shared/models/user.model';
 
 @Component({
@@ -7,8 +10,13 @@ import { User } from 'src/app/shared/models/user.model';
   styleUrls: ['./user-table.component.css']
 })
 export class UserTableComponent implements OnInit {
+  faEdit = faEdit;
+  faTrash = faTrash;
+  faMailBulk = faMailBulk;
 
   @Input() page: any;
+
+  @Output() onEditClick = new EventEmitter();
 
   constructor() { }
 

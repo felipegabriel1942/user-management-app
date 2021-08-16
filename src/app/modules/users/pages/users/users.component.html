@@ -2,15 +2,15 @@
   <button class="btn btn-primary" (click)="save()">Save</button>
   <button class="btn btn-success" (click)="openModal()">Open Modal</button>
 
-  <app-user-table [page]="page"></app-user-table>
+  <app-user-table [page]="page" (onEditClick)="edit($event)"></app-user-table>
 
-  <app-modal [id]="'modal'">
+  <app-modal [id]="'modal'" [title]="isCreatingUser() ? 'Create user' : 'Update user'">
     <div body class="p-4">
       <app-user-form [form]="form"></app-user-form>
     </div>
     <div footer>
       <button class="btn btn-danger mx-1" (click)="closeModal()">Cancel</button>
-      <button class="btn btn-primary mx-1" (click)="save()">Save</button>
+      <button class="btn btn-primary mx-1" (click)="onSaveBtnClick()">Save</button>
     </div>
   </app-modal>
 </div>

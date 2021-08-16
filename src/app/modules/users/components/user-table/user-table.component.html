@@ -5,6 +5,7 @@
       <th scope="col">Name</th>
       <th scope="col">E-mail</th>
       <th scope="col">Login</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +14,15 @@
       <td>{{ user?.name }}</td>
       <td>{{ user?.email }}</td>
       <td>{{ user?.login }}</td>
+      <td>
+        <fa-icon [icon]="faMailBulk" class="mail-icon mx-2"></fa-icon>
+        <fa-icon
+          [icon]="faEdit"
+          class="edit-icon mx-2"
+          (click)="onEditClick.emit(user)"
+        ></fa-icon
+        ><fa-icon [icon]="faTrash" class="delete-icon mx-2"></fa-icon>
+      </td>
     </tr>
   </tbody>
 </table>
