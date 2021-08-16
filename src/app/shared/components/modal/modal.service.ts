@@ -6,15 +6,11 @@ declare var $: any;
   providedIn: 'root',
 })
 export class ModalService {
-  open(id: string, closeOnBackgroundClick = true): void {
-    let modal = {
+  open(id: string): void {
+    const modal = {
       keyboard: false,
       show: true,
     };
-
-    if (!closeOnBackgroundClick) {
-      modal = Object.assign({ backdrop: 'static' }, modal);
-    }
 
     $(`#${id}`).modal(modal);
   }
