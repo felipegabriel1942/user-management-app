@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div class="main-div">
+  <div class="card p-3 shadow-sm">
+    <form [formGroup]="loginForm">
+      <div class="form-group">
+        <label>Login</label>
+        <input class="form-control" formControlName="login" />
+        <p *ngIf="showErrorMessage('login')" class="text-danger small">
+          Login is obrigatory!
+        </p>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+        />
+        <p *ngIf="showErrorMessage('password')" class="text-danger small">
+          Password is obrigatory!
+        </p>
+      </div>
+    </form>
+    <button class="btn btn-primary" (click)="authenticate()">Login</button>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.main-div {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 300px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiPrefixInterceptor implements HttpInterceptor {
-  serverUrl = 'http://localhost:8080/user/';
+  serverUrl = 'http://localhost:8080/';
 
   constructor() {}
 
@@ -22,8 +22,6 @@ export class ApiPrefixInterceptor implements HttpInterceptor {
     req = req.clone({
       url: this.serverUrl + req.url,
     });
-
-    console.log(req.url);
 
     return next.handle(req);
   }
