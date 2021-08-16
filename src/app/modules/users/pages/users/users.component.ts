@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/core/http/user.service';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
 
@@ -13,7 +14,8 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
