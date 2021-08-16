@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/core/http/user.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class UsersComponent implements OnInit {
   constructor(
     private userService: UserService,
     private modalService: ModalService,
-    private toastrService: ToastrService
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +40,8 @@ export class UsersComponent implements OnInit {
 
     const user = this.form.value;
 
-    this.userService.save(user).subscribe((res) => {
-      console.log(res);
+    this.userService.save(user).subscribe((_) => {
+      this.notificationService.success('User created successfully.');
       this.closeModal();
     });
   }
