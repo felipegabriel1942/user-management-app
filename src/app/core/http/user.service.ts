@@ -10,7 +10,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   save(user: User): Observable<User> {
-    return this.http.post<User>('', user);
+    return this.http.post<User>('user', user);
   }
 
 }

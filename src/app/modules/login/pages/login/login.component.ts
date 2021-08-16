@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { StorageKeys } from 'src/app/core/enums/storage-keys.enum';
+import { StorageService } from 'src/app/core/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -33,16 +36,19 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  authenticate(): void {
+  authenticateUser(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      return;
     }
 
     const user = this.loginForm.value;
 
     this.authenticationService.authenticate(user).subscribe((res) => {
-      console.log(res.headers.get('Authorization'));
-
+      this.storageService.setItem(
+        StorageKeys.TOKEN,
+        res.headers.get('Authorization')
+      );
       this.router.navigateByUrl('/users');
     });
   }

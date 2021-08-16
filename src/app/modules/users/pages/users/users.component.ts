@@ -19,6 +19,9 @@ export class UsersComponent implements OnInit {
     .save(
       new User({
         name: 'Felipe Gabriel Pinheiro',
+        login: 'felipe',
+        password: '123',
+        email: 'teste@yahoo.com.br'
       })
     )
     .subscribe();
