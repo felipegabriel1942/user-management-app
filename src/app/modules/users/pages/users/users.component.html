@@ -1,16 +1,46 @@
 <div class="p-3">
-  <button class="btn btn-primary" (click)="save()">Save</button>
-  <button class="btn btn-success" (click)="openModal()">Open Modal</button>
+  <button class="btn btn-success" (click)="onCreateUserBtnClicked()">
+    Create user
+  </button>
 
-  <app-user-table [page]="page" (onEditClick)="edit($event)"></app-user-table>
+  <app-user-table
+    [page]="page"
+    (onEditClick)="onEditUserBtnClicked($event)"
+    (onDeleteClick)="onDeleteUserBtnClicked($event)"
+  ></app-user-table>
 
-  <app-modal [id]="'modal'" [title]="isCreatingUser() ? 'Create user' : 'Update user'">
+  <app-modal
+    [id]="modal.CREATE_USER"
+    [title]="isCreatingUser() ? 'Create user' : 'Update user'"
+  >
     <div body class="p-4">
       <app-user-form [form]="form"></app-user-form>
     </div>
     <div footer>
-      <button class="btn btn-danger mx-1" (click)="closeModal()">Cancel</button>
-      <button class="btn btn-primary mx-1" (click)="onSaveBtnClick()">Save</button>
+      <button
+        class="btn btn-danger mx-1"
+        (click)="closeModal(modal.CREATE_USER)"
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary mx-1" (click)="onSaveBtnClick()">
+        Save
+      </button>
+    </div>
+  </app-modal>
+
+  <app-modal [id]="modal.DELETE_USER" [title]="'Delete user'">
+    <div body class="p-4">
+      <p class="text-center">Are you sure you want to delete this user?</p>
+    </div>
+    <div footer>
+      <button
+        class="btn btn-danger mx-1"
+        (click)="closeModal(modal.DELETE_USER)"
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary mx-1" (click)="delete()">Delete</button>
     </div>
   </app-modal>
 </div>

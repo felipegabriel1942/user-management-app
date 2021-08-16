@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { UserService } from 'src/app/core/http/user.service';
@@ -6,15 +6,20 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
 import { User } from 'src/app/shared/models/user.model';
 
+export enum Modal {
+  CREATE_USER = 'createUser',
+  DELETE_USER = 'deleteUser',
+}
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  @Input() page: any;
-
+  page: any;
   form: FormGroup;
+  modal = Modal;
 
   constructor(
     private userService: UserService,
@@ -58,7 +63,7 @@ export class UsersComponent implements OnInit {
   save(): void {
     this.userService.save(this.form.value).subscribe((_) => {
       this.getUsers();
-      this.closeModal();
+      this.closeModal(Modal.CREATE_USER);
       this.notificationService.success('User created successfully.');
     });
   }
@@ -66,8 +71,17 @@ export class UsersComponent implements OnInit {
   update(): void {
     this.userService.update(this.form.value).subscribe((_) => {
       this.getUsers();
-      this.closeModal();
+      this.closeModal(Modal.CREATE_USER);
       this.notificationService.success('User updated successfully.');
+    });
+  }
+
+  delete(): void {
+    this.userService.delete(this.form.get('id').value).subscribe((_) => {
+      this.form.reset();
+      this.getUsers();
+      this.closeModal(Modal.DELETE_USER);
+      this.notificationService.success('User deleted successfully.');
     });
   }
 
@@ -77,17 +91,26 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  edit(user: User): void {
-    this.openModal();
+  onEditUserBtnClicked(user: User): void {
     this.form.patchValue(user);
+    this.openModal(Modal.CREATE_USER);
   }
 
-  openModal(): void {
+  onCreateUserBtnClicked(): void {
     this.form.reset();
-    this.modalService.open('modal');
+    this.openModal(Modal.CREATE_USER);
   }
 
-  closeModal(): void {
-    this.modalService.close('modal');
+  onDeleteUserBtnClicked(user: User): void {
+    this.form.patchValue(user);
+    this.openModal(Modal.DELETE_USER);
+  }
+
+  openModal(modal: Modal): void {
+    this.modalService.open(modal);
+  }
+
+  closeModal(modal: Modal): void {
+    this.modalService.close(modal);
   }
 }

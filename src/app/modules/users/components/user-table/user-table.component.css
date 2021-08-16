@@ -14,3 +14,7 @@ fa-icon {
 .delete-icon:hover {
   color: red;
 }
+
+.key-icon:hover {
+  color: goldenrod;
+}

@@ -15,13 +15,28 @@
       <td>{{ user?.email }}</td>
       <td>{{ user?.login }}</td>
       <td>
-        <fa-icon [icon]="faMailBulk" class="mail-icon mx-2"></fa-icon>
+        <fa-icon
+          [icon]="faMailBulk"
+          class="mail-icon mx-2"
+          title="Send email to user."
+        ></fa-icon>
+        <fa-icon
+          [icon]="faKey"
+          class="key-icon mx-2"
+          title="Change user password."
+        ></fa-icon>
         <fa-icon
           [icon]="faEdit"
           class="edit-icon mx-2"
+          title="Edit user info."
           (click)="onEditClick.emit(user)"
         ></fa-icon
-        ><fa-icon [icon]="faTrash" class="delete-icon mx-2"></fa-icon>
+        ><fa-icon
+          [icon]="faTrash"
+          class="delete-icon mx-2"
+          title="Delete user."
+          (click)="onDeleteClick.emit(user)"
+        ></fa-icon>
       </td>
     </tr>
   </tbody>

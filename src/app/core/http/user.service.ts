@@ -17,6 +17,10 @@ export class UserService {
     return this.http.put<User>(`user/${user.id}`, user);
   }
 
+  delete(id: number): Observable<any> {
+    return this.http.delete<any>(`user/${id}`);
+  }
+
   getUsers(page: number): Observable<any> {
     return this.http.get<any>(`user/${page}/users`);
   }
