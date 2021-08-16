@@ -13,7 +13,10 @@ export class StorageService {
   public setItem(key: StorageKeys, value: any): void {
     const storageObject = this.getStorageObject();
     storageObject[key.valueOf().toString()] = value;
-    sessionStorage.setItem(this.storageObjectKey, JSON.stringify(storageObject));
+    sessionStorage.setItem(
+      this.storageObjectKey,
+      JSON.stringify(storageObject)
+    );
   }
 
   public getItem(key: StorageKeys): any {
@@ -24,7 +27,11 @@ export class StorageService {
       : storageObject[key.valueOf().toString()];
   }
 
-  private getStorageObject(): any {
+  public deleteStorageObject(): any {
+    sessionStorage.removeItem(this.storageObjectKey);
+  }
+
+  public getStorageObject(): any {
     const storageObject = sessionStorage.getItem(this.storageObjectKey);
 
     return storageObject == null ? {} : JSON.parse(storageObject);

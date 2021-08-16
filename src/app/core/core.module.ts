@@ -5,10 +5,12 @@ import { ApiPrefixInterceptor } from './interceptors/api-prefix.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ServerErrorInterceptor } from './interceptors/server-error.interceptor';
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [HeaderComponent],
   imports: [CommonModule],
+  exports: [HeaderComponent],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlerInterceptor },
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
