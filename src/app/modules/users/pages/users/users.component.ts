@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+
 import { UserService } from 'src/app/core/http/user.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-users',
@@ -11,6 +12,8 @@ import { ModalService } from 'src/app/shared/components/modal/modal.service';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
+  @Input() page: any;
+
   form: FormGroup;
 
   constructor(
@@ -21,6 +24,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.getUsers();
   }
 
   buildForm(): void {
@@ -29,6 +33,7 @@ export class UsersComponent implements OnInit {
       login: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required),
+      admin: new FormControl(false),
     });
   }
 
@@ -41,8 +46,16 @@ export class UsersComponent implements OnInit {
     const user = this.form.value;
 
     this.userService.save(user).subscribe((_) => {
-      this.notificationService.success('User created successfully.');
+      this.getUsers();
       this.closeModal();
+      this.notificationService.success('User created successfully.');
+    });
+  }
+
+  getUsers(): void {
+    this.userService.getUsers(0).subscribe((res) => {
+      this.page = res;
+      console.log(res);
     });
   }
 
@@ -55,7 +68,4 @@ export class UsersComponent implements OnInit {
     this.modalService.close('modal');
   }
 
-  showErrorMessage(field: string): boolean {
-    return this.form.get(field).invalid && this.form.get(field).touched;
-  }
 }

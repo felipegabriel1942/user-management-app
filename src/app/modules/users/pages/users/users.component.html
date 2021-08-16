@@ -1,41 +1,16 @@
-<button class="btn btn-primary" (click)="save()">Save</button>
-<button class="btn btn-success" (click)="openModal()">Open Modal</button>
+<div class="p-3">
+  <button class="btn btn-primary" (click)="save()">Save</button>
+  <button class="btn btn-success" (click)="openModal()">Open Modal</button>
 
-<app-modal [id]="'modal'">
-  <div body class="p-4">
-    <form [formGroup]="form">
-      <div class="form-group">
-        <label>Name</label>
-        <input class="form-control" formControlName="name" />
-        <p *ngIf="showErrorMessage('name')" class="text-danger small">
-          Name is obrigatory!
-        </p>
-      </div>
-      <div class="form-group">
-        <label>Login</label>
-        <input class="form-control" formControlName="login" />
-        <p *ngIf="showErrorMessage('login')" class="text-danger small">
-          Login is obrigatory!
-        </p>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input class="form-control" formControlName="password" type="password">
-        <p *ngIf="showErrorMessage('password')" class="text-danger small">
-          Password is obrigatory!
-        </p>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input class="form-control" formControlName="email" type="email">
-        <p *ngIf="showErrorMessage('email')" class="text-danger small">
-          Email is obrigatory!
-        </p>
-      </div>
-    </form>
-  </div>
-  <div footer>
-    <button class="btn btn-danger mx-1" (click)="closeModal()">Cancel</button>
-    <button class="btn btn-primary mx-1" (click)="save()">Save</button>
-  </div>
-</app-modal>
+  <app-user-table [page]="page"></app-user-table>
+
+  <app-modal [id]="'modal'">
+    <div body class="p-4">
+      <app-user-form [form]="form"></app-user-form>
+    </div>
+    <div footer>
+      <button class="btn btn-danger mx-1" (click)="closeModal()">Cancel</button>
+      <button class="btn btn-primary mx-1" (click)="save()">Save</button>
+    </div>
+  </app-modal>
+</div>

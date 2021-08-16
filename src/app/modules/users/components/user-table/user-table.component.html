@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Login</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of page?.content; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ user?.name }}</td>
+      <td>{{ user?.email }}</td>
+      <td>{{ user?.login }}</td>
+    </tr>
+  </tbody>
+</table>

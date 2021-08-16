@@ -1,0 +1,39 @@
+<form [formGroup]="form">
+  <div class="form-group">
+    <label>Name</label>
+    <input class="form-control" formControlName="name" />
+    <p *ngIf="showErrorMessage('name')" class="text-danger small">
+      Name is obrigatory!
+    </p>
+  </div>
+  <div class="form-group">
+    <label>Login</label>
+    <input class="form-control" formControlName="login" />
+    <p *ngIf="showErrorMessage('login')" class="text-danger small">
+      Login is obrigatory!
+    </p>
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input class="form-control" formControlName="password" type="password" />
+    <p *ngIf="showErrorMessage('password')" class="text-danger small">
+      Password is obrigatory!
+    </p>
+  </div>
+  <div class="form-group">
+    <label>E-mail</label>
+    <input class="form-control" formControlName="email" type="email" />
+    <p *ngIf="showErrorMessage('email')" class="text-danger small">
+      E-mail is obrigatory!
+    </p>
+  </div>
+  <div class="form-group form-check">
+    <input
+      type="checkbox"
+      class="form-check-input"
+      id="admin"
+      formControlName="admin"
+    />
+    <label class="form-check-label" for="admin">Admin</label>
+  </div>
+</form>

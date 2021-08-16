@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   constructor(private http: HttpClient) {}
@@ -13,4 +13,7 @@ export class UserService {
     return this.http.post<User>('user', user);
   }
 
+  getUsers(page: number): Observable<any> {
+    return this.http.get<any>(`user/${page}/users`);
+  }
 }
