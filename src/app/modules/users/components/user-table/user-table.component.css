@@ -18,3 +18,12 @@ fa-icon {
 .key-icon:hover {
   color: goldenrod;
 }
+
+tbody {
+  border: 1px solid #dee2e6;
+  border-radius: 15px;
+}
+
+.table {
+  /* width: 99%; */
+}

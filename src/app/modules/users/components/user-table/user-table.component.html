@@ -1,43 +1,55 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">E-mail</th>
-      <th scope="col">Login</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of page?.content; let i = index">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ user?.name }}</td>
-      <td>{{ user?.email }}</td>
-      <td>{{ user?.login }}</td>
-      <td>
-        <fa-icon
-          [icon]="faMailBulk"
-          class="mail-icon mx-2"
-          title="Send email to user."
-        ></fa-icon>
-        <fa-icon
-          [icon]="faKey"
-          class="key-icon mx-2"
-          title="Change user password."
-        ></fa-icon>
-        <fa-icon
-          [icon]="faEdit"
-          class="edit-icon mx-2"
-          title="Edit user info."
-          (click)="onEditClick.emit(user)"
-        ></fa-icon
-        ><fa-icon
-          [icon]="faTrash"
-          class="delete-icon mx-2"
-          title="Delete user."
-          (click)="onDeleteClick.emit(user)"
-        ></fa-icon>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Login</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of page?.content; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ user?.name }}</td>
+        <td>{{ user?.email }}</td>
+        <td>{{ user?.login }}</td>
+        <td class="d-flex justify-content-around">
+          <fa-icon
+            [icon]="faMailBulk"
+            class="mail-icon mx-2"
+            title="Send email to user."
+          ></fa-icon>
+          <fa-icon
+            [icon]="faKey"
+            class="key-icon mx-2"
+            title="Change user password."
+          ></fa-icon>
+          <fa-icon
+            [icon]="faEdit"
+            class="edit-icon mx-2"
+            title="Edit user info."
+            (click)="onEditClick.emit(user)"
+          ></fa-icon
+          ><fa-icon
+            [icon]="faTrash"
+            class="delete-icon mx-2"
+            title="Delete user."
+            (click)="onDeleteClick.emit(user)"
+          ></fa-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link">Previous</a></li>
+    <li class="page-item"><a class="page-link">1</a></li>
+    <li class="page-item"><a class="page-link">2</a></li>
+    <li class="page-item"><a class="page-link">3</a></li>
+    <li class="page-item"><a class="page-link">Next</a></li>
+  </ul>
+</nav>

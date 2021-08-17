@@ -6,10 +6,11 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ServerErrorInterceptor } from './interceptors/server-error.interceptor';
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 import { HeaderComponent } from './header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [HeaderComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, FontAwesomeModule],
   exports: [HeaderComponent],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlerInterceptor },
