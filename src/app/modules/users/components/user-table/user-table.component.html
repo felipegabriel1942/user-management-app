@@ -6,7 +6,7 @@
         <th scope="col">Name</th>
         <th scope="col">E-mail</th>
         <th scope="col">Login</th>
-        <th scope="col">Admin?</th>
+        <th scope="col">Admin</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -17,13 +17,18 @@
         <td>{{ user?.email }}</td>
         <td>{{ user?.login }}</td>
         <td>
-          <fa-icon *ngIf="user?.admin" [icon]="faUser" class="user-icon mx-2"></fa-icon>
+          <fa-icon
+            *ngIf="user?.admin"
+            [icon]="faUser"
+            class="user-icon mx-2"
+          ></fa-icon>
         </td>
         <td class="d-flex justify-content-around">
           <fa-icon
             [icon]="faMailBulk"
             class="mail-icon mx-2"
             title="Send email to user."
+            (click)="onEmailToUserClick.emit(user)"
           ></fa-icon>
           <fa-icon
             [icon]="faKey"

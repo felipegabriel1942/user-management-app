@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmailService } from 'src/app/core/http/email.service';
 
 import { UserService } from 'src/app/core/http/user.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ModalService } from 'src/app/shared/components/modal/modal.service';
+import { Email } from 'src/app/shared/models/email.model';
 import { User } from 'src/app/shared/models/user.model';
 
 export enum Modal {
   CREATE_USER = 'createUser',
   DELETE_USER = 'deleteUser',
-  UPDATE_PASSWORD = 'updatePassword'
+  UPDATE_PASSWORD = 'updatePassword',
+  EMAIL_USER = 'emailUser',
 }
 
 @Component({
@@ -19,22 +22,24 @@ export enum Modal {
 })
 export class UsersComponent implements OnInit {
   page: any;
-  form: FormGroup;
   modal = Modal;
+  userForm: FormGroup;
+  emailForm: FormGroup;
 
   constructor(
     private userService: UserService,
+    private emailService: EmailService,
     private modalService: ModalService,
     private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
-    this.buildForm();
+    this.buildForms();
     this.getUsers();
   }
 
-  buildForm(): void {
-    this.form = new FormGroup({
+  buildForms(): void {
+    this.userForm = new FormGroup({
       id: new FormControl(null),
       name: new FormControl(null, Validators.required),
       login: new FormControl(null, Validators.required),
@@ -42,11 +47,17 @@ export class UsersComponent implements OnInit {
       email: new FormControl(null, Validators.required),
       admin: new FormControl(false),
     });
+
+    this.emailForm = new FormGroup({
+      destination: new FormControl({ value: null, disabled: true }),
+      subject: new FormControl(null, Validators.required),
+      text: new FormControl(null, Validators.required),
+    });
   }
 
   onSaveBtnClick(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
       return;
     }
 
@@ -58,11 +69,11 @@ export class UsersComponent implements OnInit {
   }
 
   isCreatingUser(): boolean {
-    return this.form.get('id').value == null;
+    return this.userForm.get('id').value == null;
   }
 
   save(): void {
-    this.userService.save(this.form.value).subscribe((_) => {
+    this.userService.save(this.userForm.value).subscribe((_) => {
       this.getUsers();
       this.closeModal(Modal.CREATE_USER);
       this.notificationService.success('User created successfully.');
@@ -70,7 +81,7 @@ export class UsersComponent implements OnInit {
   }
 
   update(): void {
-    this.userService.update(this.form.value).subscribe((_) => {
+    this.userService.update(this.userForm.value).subscribe((_) => {
       this.getUsers();
       this.closeModal(Modal.CREATE_USER);
       this.notificationService.success('User updated successfully.');
@@ -78,8 +89,8 @@ export class UsersComponent implements OnInit {
   }
 
   delete(): void {
-    this.userService.delete(this.form.get('id').value).subscribe((_) => {
-      this.form.reset();
+    this.userService.delete(this.userForm.get('id').value).subscribe((_) => {
+      this.userForm.reset();
       this.getUsers();
       this.closeModal(Modal.DELETE_USER);
       this.notificationService.success('User deleted successfully.');
@@ -87,7 +98,7 @@ export class UsersComponent implements OnInit {
   }
 
   updatePassword(): void {
-    this.userService.updatePassword(this.form.value).subscribe((_) => {
+    this.userService.updatePassword(this.userForm.value).subscribe((_) => {
       this.getUsers();
       this.closeModal(Modal.UPDATE_PASSWORD);
       this.notificationService.success('Password updated successfully.');
@@ -101,25 +112,37 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  sendEmail(): void {
+    this.emailService.send(this.emailForm.getRawValue()).subscribe((_) => {
+      this.closeModal(Modal.EMAIL_USER);
+      this.notificationService.success('Email sent successfully.');
+    });
+  }
+
   onEditUserBtnClicked(user: User): void {
-    this.form.patchValue(user);
+    this.userForm.patchValue(user);
     this.openModal(Modal.CREATE_USER);
   }
 
   onCreateUserBtnClicked(): void {
-    this.form.reset();
+    this.userForm.reset();
     this.openModal(Modal.CREATE_USER);
   }
 
   onDeleteUserBtnClicked(user: User): void {
-    this.form.patchValue(user);
+    this.userForm.patchValue(user);
     this.openModal(Modal.DELETE_USER);
   }
 
   onUpdatePasswordClicked(user: User): void {
-    this.form.patchValue(user);
-    this.form.get('password').setValue(null);
+    this.userForm.patchValue(user);
+    this.userForm.get('password').setValue(null);
     this.openModal(Modal.UPDATE_PASSWORD);
+  }
+
+  onSendEmailToUserBtnClicked(user: User): void {
+    this.emailForm.get('destination').setValue(user.email);
+    this.openModal(Modal.EMAIL_USER);
   }
 
   openModal(modal: Modal): void {

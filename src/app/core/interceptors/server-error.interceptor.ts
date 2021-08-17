@@ -22,6 +22,10 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
+        if (error.status === 0) {
+          return throwError('Server connection error.');
+        }
+
         if (error.status === 403 && this.userIsLogged()) {
           return throwError(
             'You do not have permission to perform this action.'

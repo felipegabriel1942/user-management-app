@@ -10,8 +10,9 @@
     [page]="page"
     (onEditClick)="onEditUserBtnClicked($event)"
     (onDeleteClick)="onDeleteUserBtnClicked($event)"
-    (onPageChange)="getUsers($event)"
     (onChangePasswordClick)="onUpdatePasswordClicked($event)"
+    (onEmailToUserClick)="onSendEmailToUserBtnClicked($event)"
+    (onPageChange)="getUsers($event)"
   ></app-user-table>
 
   <app-modal
@@ -19,7 +20,7 @@
     [title]="isCreatingUser() ? 'Create user' : 'Update user'"
   >
     <div body class="p-4">
-      <app-user-form [form]="form"></app-user-form>
+      <app-user-form [form]="userForm"></app-user-form>
     </div>
     <div footer>
       <button
@@ -51,7 +52,7 @@
 
   <app-modal [id]="modal.UPDATE_PASSWORD" [title]="'Update password'">
     <div body class="p-4">
-      <form [formGroup]="form">
+      <form [formGroup]="userForm">
         <div class="form-group">
           <label>Password</label>
           <input
@@ -61,7 +62,10 @@
           />
           <p
             class="text-danger small"
-            *ngIf="form.get('password').invalid && form.get('password').touched"
+            *ngIf="
+              userForm.get('password').invalid &&
+              userForm.get('password').touched
+            "
           >
             Password is obrigatory!
           </p>
@@ -78,6 +82,59 @@
       <button class="btn btn-primary mx-1" (click)="updatePassword()">
         Update
       </button>
+    </div>
+  </app-modal>
+  <app-modal [id]="modal.EMAIL_USER" [title]="'Send email to user'">
+    <div body class="p-4">
+      <form [formGroup]="emailForm">
+        <div class="form-group">
+          <label>Destination</label>
+          <input class="form-control" formControlName="destination" />
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <input
+            class="form-control"
+            formControlName="subject"
+            type="subject"
+          />
+          <p
+            class="text-danger small"
+            *ngIf="
+              emailForm.get('subject').invalid &&
+              emailForm.get('subject').touched
+            "
+          >
+            Password is obrigatory!
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="text">Text</label>
+          <textarea
+            class="form-control"
+            id="text"
+            rows="5"
+            formControlName="text"
+          ></textarea>
+          <p
+            class="text-danger small"
+            *ngIf="
+              emailForm.get('text').invalid && emailForm.get('text').touched
+            "
+          >
+            Text is obrigatory!
+          </p>
+        </div>
+      </form>
+    </div>
+    <div footer>
+      <button
+        class="btn btn-danger mx-1"
+        (click)="closeModal(modal.EMAIL_USER)"
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary mx-1" (click)="sendEmail()">Send</button>
     </div>
   </app-modal>
 </div>
