@@ -9,6 +9,7 @@ import { User } from 'src/app/shared/models/user.model';
 export enum Modal {
   CREATE_USER = 'createUser',
   DELETE_USER = 'deleteUser',
+  UPDATE_PASSWORD = 'updatePassword'
 }
 
 @Component({
@@ -85,6 +86,14 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  updatePassword(): void {
+    this.userService.updatePassword(this.form.value).subscribe((_) => {
+      this.getUsers();
+      this.closeModal(Modal.UPDATE_PASSWORD);
+      this.notificationService.success('Password updated successfully.');
+    });
+  }
+
   getUsers(page: number = 0): void {
     this.userService.getUsers(page).subscribe((res) => {
       console.log(res);
@@ -105,6 +114,12 @@ export class UsersComponent implements OnInit {
   onDeleteUserBtnClicked(user: User): void {
     this.form.patchValue(user);
     this.openModal(Modal.DELETE_USER);
+  }
+
+  onUpdatePasswordClicked(user: User): void {
+    this.form.patchValue(user);
+    this.form.get('password').setValue(null);
+    this.openModal(Modal.UPDATE_PASSWORD);
   }
 
   openModal(modal: Modal): void {

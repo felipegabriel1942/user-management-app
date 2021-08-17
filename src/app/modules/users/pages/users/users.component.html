@@ -11,6 +11,7 @@
     (onEditClick)="onEditUserBtnClicked($event)"
     (onDeleteClick)="onDeleteUserBtnClicked($event)"
     (onPageChange)="getUsers($event)"
+    (onChangePasswordClick)="onUpdatePasswordClicked($event)"
   ></app-user-table>
 
   <app-modal
@@ -45,6 +46,38 @@
         Cancel
       </button>
       <button class="btn btn-primary mx-1" (click)="delete()">Delete</button>
+    </div>
+  </app-modal>
+
+  <app-modal [id]="modal.UPDATE_PASSWORD" [title]="'Update password'">
+    <div body class="p-4">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            class="form-control"
+            formControlName="password"
+            type="password"
+          />
+          <p
+            class="text-danger small"
+            *ngIf="form.get('password').invalid && form.get('password').touched"
+          >
+            Password is obrigatory!
+          </p>
+        </div>
+      </form>
+    </div>
+    <div footer>
+      <button
+        class="btn btn-danger mx-1"
+        (click)="closeModal(modal.UPDATE_PASSWORD)"
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary mx-1" (click)="updatePassword()">
+        Update
+      </button>
     </div>
   </app-modal>
 </div>

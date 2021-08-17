@@ -24,4 +24,8 @@ export class UserService {
   getUsers(page: number): Observable<any> {
     return this.http.get<any>(`user/${page}/users`);
   }
+
+  updatePassword(user: User): Observable<User> {
+    return this.http.put<User>(`user/update-password/${user.id}`, user);
+  }
 }

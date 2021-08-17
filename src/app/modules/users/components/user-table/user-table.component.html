@@ -25,6 +25,7 @@
             [icon]="faKey"
             class="key-icon mx-2"
             title="Change user password."
+            (click)="onChangePasswordClick.emit(user)"
           ></fa-icon>
           <fa-icon
             [icon]="faEdit"
@@ -44,15 +45,25 @@
   </table>
 </div>
 
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li
-      *ngFor="let p of pagination"
-      class="page-item"
-      [ngClass]="{ active: p === page?.number }"
-      (click)="onPageChange.emit(p)"
-    >
-      <a class="page-link">{{ p + 1 }}</a>
-    </li>
-  </ul>
-</nav>
+<div class="row">
+  <div class="col-md-6">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li
+          *ngFor="let p of pagination"
+          class="page-item"
+          [ngClass]="{ active: p === page?.number }"
+          (click)="onPageChange.emit(p)"
+        >
+          <a class="page-link">{{ p + 1 }}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="col-md-6">
+    <p class="text-right small">
+      Showing {{ page?.numberOfElements }} user(s) out of
+      {{ page?.totalElements }}
+    </p>
+  </div>
+</div>

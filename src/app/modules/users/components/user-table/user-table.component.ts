@@ -24,6 +24,7 @@ export class UserTableComponent implements OnInit {
 
   @Output() onEditClick = new EventEmitter();
   @Output() onDeleteClick = new EventEmitter();
+  @Output() onChangePasswordClick = new EventEmitter();
   @Output() onPageChange = new EventEmitter();
 
   constructor() {}
