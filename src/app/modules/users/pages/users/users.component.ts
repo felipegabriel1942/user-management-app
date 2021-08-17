@@ -13,6 +13,7 @@ export enum Modal {
   DELETE_USER = 'deleteUser',
   UPDATE_PASSWORD = 'updatePassword',
   EMAIL_USER = 'emailUser',
+  EMAIL_ALL_ADMINS = 'emailAllAdmins'
 }
 
 @Component({
@@ -112,9 +113,26 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  sendEmail(): void {
-    this.emailService.send(this.emailForm.getRawValue()).subscribe((_) => {
+  sendEmailToUser(): void {
+    if (this.emailForm.invalid) {
+      this.emailForm.markAllAsTouched();
+      return;
+    }
+
+    this.emailService.sendToUser(this.emailForm.getRawValue()).subscribe((_) => {
       this.closeModal(Modal.EMAIL_USER);
+      this.notificationService.success('Email sent successfully.');
+    });
+  }
+
+  sendEmailToAllAdmins(): void {
+    if (this.emailForm.invalid) {
+      this.emailForm.markAllAsTouched();
+      return;
+    }
+
+    this.emailService.sendToAllAdmins(this.emailForm.getRawValue()).subscribe((_) => {
+      this.closeModal(Modal.EMAIL_ALL_ADMINS);
       this.notificationService.success('Email sent successfully.');
     });
   }
@@ -141,8 +159,14 @@ export class UsersComponent implements OnInit {
   }
 
   onSendEmailToUserBtnClicked(user: User): void {
+    this.emailForm.reset();
     this.emailForm.get('destination').setValue(user.email);
     this.openModal(Modal.EMAIL_USER);
+  }
+
+  onSendEmailToAllAdminsBtnClicked(): void {
+    this.emailForm.reset();
+    this.openModal(Modal.EMAIL_ALL_ADMINS);
   }
 
   openModal(modal: Modal): void {

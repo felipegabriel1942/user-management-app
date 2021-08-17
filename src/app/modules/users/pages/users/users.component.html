@@ -1,9 +1,15 @@
 <div class="p-3">
   <button
-    class="btn btn-success my-3 float-right"
+    class="btn btn-success my-3 mx-2 float-right"
     (click)="onCreateUserBtnClicked()"
   >
     Create user
+  </button>
+  <button
+    class="btn btn-info my-3 mx-2 float-right"
+    (click)="onSendEmailToAllAdminsBtnClicked()"
+  >
+    Send email to all admins
   </button>
 
   <app-user-table
@@ -105,7 +111,7 @@
               emailForm.get('subject').touched
             "
           >
-            Password is obrigatory!
+            Subject is obrigatory!
           </p>
         </div>
         <div class="form-group">
@@ -134,7 +140,60 @@
       >
         Cancel
       </button>
-      <button class="btn btn-primary mx-1" (click)="sendEmail()">Send</button>
+      <button class="btn btn-primary mx-1" (click)="sendEmailToUser()">
+        Send
+      </button>
+    </div>
+  </app-modal>
+  <app-modal [id]="modal.EMAIL_ALL_ADMINS" [title]="'Send email to all admins'">
+    <div body class="p-4">
+      <form [formGroup]="emailForm">
+        <div class="form-group">
+          <label>Subject</label>
+          <input
+            class="form-control"
+            formControlName="subject"
+            type="subject"
+          />
+          <p
+            class="text-danger small"
+            *ngIf="
+              emailForm.get('subject').invalid &&
+              emailForm.get('subject').touched
+            "
+          >
+            Subject is obrigatory!
+          </p>
+        </div>
+        <div class="form-group">
+          <label for="text">Text</label>
+          <textarea
+            class="form-control"
+            id="text"
+            rows="5"
+            formControlName="text"
+          ></textarea>
+          <p
+            class="text-danger small"
+            *ngIf="
+              emailForm.get('text').invalid && emailForm.get('text').touched
+            "
+          >
+            Text is obrigatory!
+          </p>
+        </div>
+      </form>
+    </div>
+    <div footer>
+      <button
+        class="btn btn-danger mx-1"
+        (click)="closeModal(modal.EMAIL_ALL_ADMINS)"
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary mx-1" (click)="sendEmailToAllAdmins()">
+        Send
+      </button>
     </div>
   </app-modal>
 </div>

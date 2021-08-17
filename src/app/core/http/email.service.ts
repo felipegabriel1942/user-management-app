@@ -9,7 +9,11 @@ import { Email } from 'src/app/shared/models/email.model';
 export class EmailService {
   constructor(private http: HttpClient) {}
 
-  send(email: Email): Observable<any> {
+  sendToUser(email: Email): Observable<any> {
     return this.http.post<any>('email', email);
+  }
+
+  sendToAllAdmins(email: Email): Observable<any> {
+    return this.http.post<any>('email/admins', email);
   }
 }
