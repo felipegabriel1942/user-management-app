@@ -27,3 +27,7 @@ tbody {
 .table {
   width: 99.9999%;
 }
+
+li {
+  cursor: pointer;
+}

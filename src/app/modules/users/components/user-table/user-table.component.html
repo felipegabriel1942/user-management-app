@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of page?.content; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
+        <th scope="row">{{ i + 1 + page?.size * page?.number }}</th>
         <td>{{ user?.name }}</td>
         <td>{{ user?.email }}</td>
         <td>{{ user?.login }}</td>
@@ -46,10 +46,13 @@
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link">Previous</a></li>
-    <li class="page-item"><a class="page-link">1</a></li>
-    <li class="page-item"><a class="page-link">2</a></li>
-    <li class="page-item"><a class="page-link">3</a></li>
-    <li class="page-item"><a class="page-link">Next</a></li>
+    <li
+      *ngFor="let p of pagination"
+      class="page-item"
+      [ngClass]="{ active: p === page?.number }"
+      (click)="onPageChange.emit(p)"
+    >
+      <a class="page-link">{{ p + 1 }}</a>
+    </li>
   </ul>
 </nav>

@@ -10,6 +10,7 @@
     [page]="page"
     (onEditClick)="onEditUserBtnClicked($event)"
     (onDeleteClick)="onDeleteUserBtnClicked($event)"
+    (onPageChange)="getUsers($event)"
   ></app-user-table>
 
   <app-modal

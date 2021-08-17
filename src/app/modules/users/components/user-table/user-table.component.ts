@@ -24,8 +24,18 @@ export class UserTableComponent implements OnInit {
 
   @Output() onEditClick = new EventEmitter();
   @Output() onDeleteClick = new EventEmitter();
+  @Output() onPageChange = new EventEmitter();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
+  get pagination(): number[] {
+    if (this.page == null) {
+      return;
+    }
+
+    return Array.from(Array(this.page.totalPages).keys());
+  }
 }
