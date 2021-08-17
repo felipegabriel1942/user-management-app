@@ -87,6 +87,7 @@ export class UsersComponent implements OnInit {
 
   getUsers(): void {
     this.userService.getUsers(0).subscribe((res) => {
+      console.log(res);
       this.page = res;
     });
   }
