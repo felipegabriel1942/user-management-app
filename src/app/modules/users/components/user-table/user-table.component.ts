@@ -5,6 +5,7 @@ import {
   faTrash,
   faMailBulk,
   faKey,
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 
 import { User } from 'src/app/shared/models/user.model';
@@ -19,6 +20,7 @@ export class UserTableComponent implements OnInit {
   faTrash = faTrash;
   faMailBulk = faMailBulk;
   faKey = faKey;
+  faUser = faUser;
 
   @Input() page: any;
 
