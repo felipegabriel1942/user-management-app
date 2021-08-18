@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { FormService } from 'src/app/core/services/form.service';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css'],
+  selector: 'app-user-email-form',
+  templateUrl: './user-email-form.component.html',
+  styleUrls: ['./user-email-form.component.css'],
 })
-export class UserFormComponent implements OnInit {
+export class UserEmailFormComponent implements OnInit {
   @Input() form: FormGroup;
 
   constructor(private formService: FormService) {}

@@ -3,11 +3,11 @@ import { FormGroup } from '@angular/forms';
 import { FormService } from 'src/app/core/services/form.service';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css'],
+  selector: 'app-user-update-form',
+  templateUrl: './user-update-form.component.html',
+  styleUrls: ['./user-update-form.component.css'],
 })
-export class UserFormComponent implements OnInit {
+export class UserUpdateFormComponent implements OnInit {
   @Input() form: FormGroup;
 
   constructor(private formService: FormService) {}

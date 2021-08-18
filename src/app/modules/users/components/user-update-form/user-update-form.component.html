@@ -1,0 +1,19 @@
+<form [formGroup]="form">
+  <div class="form-group">
+    <label>Password</label>
+    <input
+      class="form-control"
+      formControlName="password"
+      type="password"
+    />
+    <p
+      class="text-danger small"
+      *ngIf="
+        form.get('password').invalid &&
+        form.get('password').touched
+      "
+    >
+      Password is obrigatory!
+    </p>
+  </div>
+</form>

@@ -58,25 +58,7 @@
 
   <app-modal [id]="modal.UPDATE_PASSWORD" [title]="'Update password'">
     <div body class="p-4">
-      <form [formGroup]="userForm">
-        <div class="form-group">
-          <label>Password</label>
-          <input
-            class="form-control"
-            formControlName="password"
-            type="password"
-          />
-          <p
-            class="text-danger small"
-            *ngIf="
-              userForm.get('password').invalid &&
-              userForm.get('password').touched
-            "
-          >
-            Password is obrigatory!
-          </p>
-        </div>
-      </form>
+      <app-user-update-form [form]="userForm"></app-user-update-form>
     </div>
     <div footer>
       <button
@@ -90,48 +72,10 @@
       </button>
     </div>
   </app-modal>
+
   <app-modal [id]="modal.EMAIL_USER" [title]="'Send email to user'">
     <div body class="p-4">
-      <form [formGroup]="emailForm">
-        <div class="form-group">
-          <label>Destination</label>
-          <input class="form-control" formControlName="destination" />
-        </div>
-        <div class="form-group">
-          <label>Subject</label>
-          <input
-            class="form-control"
-            formControlName="subject"
-            type="subject"
-          />
-          <p
-            class="text-danger small"
-            *ngIf="
-              emailForm.get('subject').invalid &&
-              emailForm.get('subject').touched
-            "
-          >
-            Subject is obrigatory!
-          </p>
-        </div>
-        <div class="form-group">
-          <label for="text">Text</label>
-          <textarea
-            class="form-control"
-            id="text"
-            rows="5"
-            formControlName="text"
-          ></textarea>
-          <p
-            class="text-danger small"
-            *ngIf="
-              emailForm.get('text').invalid && emailForm.get('text').touched
-            "
-          >
-            Text is obrigatory!
-          </p>
-        </div>
-      </form>
+      <app-user-email-form [form]="emailForm"></app-user-email-form>
     </div>
     <div footer>
       <button
@@ -145,44 +89,10 @@
       </button>
     </div>
   </app-modal>
+
   <app-modal [id]="modal.EMAIL_ALL_ADMINS" [title]="'Send email to all admins'">
     <div body class="p-4">
-      <form [formGroup]="emailForm">
-        <div class="form-group">
-          <label>Subject</label>
-          <input
-            class="form-control"
-            formControlName="subject"
-            type="subject"
-          />
-          <p
-            class="text-danger small"
-            *ngIf="
-              emailForm.get('subject').invalid &&
-              emailForm.get('subject').touched
-            "
-          >
-            Subject is obrigatory!
-          </p>
-        </div>
-        <div class="form-group">
-          <label for="text">Text</label>
-          <textarea
-            class="form-control"
-            id="text"
-            rows="5"
-            formControlName="text"
-          ></textarea>
-          <p
-            class="text-danger small"
-            *ngIf="
-              emailForm.get('text').invalid && emailForm.get('text').touched
-            "
-          >
-            Text is obrigatory!
-          </p>
-        </div>
-      </form>
+      <app-admin-email-form [form]="emailForm"></app-admin-email-form>
     </div>
     <div footer>
       <button
