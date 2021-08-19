@@ -1,25 +1,29 @@
 <div class="p-3">
-  <button
-    class="btn btn-success my-3 mx-2 float-right"
-    (click)="onCreateUserBtnClicked()"
-  >
-    Create user
-  </button>
-  <button
-    class="btn btn-info my-3 mx-2 float-right"
-    (click)="onSendEmailToAllAdminsBtnClicked()"
-  >
-    Send email to all admins
-  </button>
+  <div class="card shadow">
+    <div class="card-body">
+      <button
+        class="btn btn-success my-3 mx-2 float-right"
+        (click)="onCreateUserBtnClicked()"
+      >
+        Create user
+      </button>
+      <button
+        class="btn btn-info my-3 mx-2 float-right"
+        (click)="onSendEmailToAllAdminsBtnClicked()"
+      >
+        Send email to all admins
+      </button>
 
-  <app-user-table
-    [page]="page"
-    (onEditClick)="onEditUserBtnClicked($event)"
-    (onDeleteClick)="onDeleteUserBtnClicked($event)"
-    (onChangePasswordClick)="onUpdatePasswordClicked($event)"
-    (onEmailToUserClick)="onSendEmailToUserBtnClicked($event)"
-    (onPageChange)="getUsers($event)"
-  ></app-user-table>
+      <app-user-table
+        [page]="page"
+        (onEditClick)="onEditUserBtnClicked($event)"
+        (onDeleteClick)="onDeleteUserBtnClicked($event)"
+        (onChangePasswordClick)="onUpdatePasswordClicked($event)"
+        (onEmailToUserClick)="onSendEmailToUserBtnClicked($event)"
+        (onPageChange)="getUsers($event)"
+      ></app-user-table>
+    </div>
+  </div>
 
   <app-modal
     [id]="modal.CREATE_USER"
