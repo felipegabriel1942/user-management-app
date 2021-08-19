@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  user-management-app:
+    image: user-management-app
+    build: .
+    ports:
+      - 8081:80
