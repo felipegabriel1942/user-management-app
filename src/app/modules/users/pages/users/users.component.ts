@@ -108,7 +108,6 @@ export class UsersComponent implements OnInit {
 
   getUsers(page: number = 0): void {
     this.userService.getUsers(page).subscribe((res) => {
-      console.log(res);
       this.page = res;
     });
   }
