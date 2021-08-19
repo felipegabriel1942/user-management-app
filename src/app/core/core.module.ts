@@ -7,6 +7,7 @@ import { ServerErrorInterceptor } from './interceptors/server-error.interceptor'
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 import { HeaderComponent } from './header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -17,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     { provide: HTTP_INTERCEPTORS, useClass: ApiPrefixInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
   ],
 })
 export class CoreModule {}
