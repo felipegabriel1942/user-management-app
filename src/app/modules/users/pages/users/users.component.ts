@@ -152,6 +152,7 @@ export class UsersComponent implements OnInit {
   }
 
   onUpdatePasswordClicked(user: User): void {
+    this.userForm.reset();
     this.userForm.patchValue(user);
     this.userForm.get('password').setValue(null);
     this.openModal(Modal.UPDATE_PASSWORD);
